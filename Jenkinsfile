@@ -4,7 +4,14 @@ pipeline {
       maven 'MAVEN_HOME'
      }
     stages {
-        stage('Example') {
+        stage('maven version')
+        {
+           steps
+            {
+                bat 'mvn -v'
+            }
+        }   
+        stage('clone') {
             steps {
                 script
                 {
@@ -19,6 +26,22 @@ pipeline {
                 echo 'helloworld'  
                 } 
                 }    
+            }
+        }
+        stage('Test')
+        {
+           steps
+            {
+                bat 'mvn test -f GitTojenkins'
+
+            }
+        }
+        stage('Build')
+        {
+           steps
+            {
+                bat 'mvn package -f GitTojenkins'
+
             }
         }
     }
